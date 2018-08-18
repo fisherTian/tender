@@ -9,6 +9,7 @@ import com.ziyu.tender.config.AppConfig;
 import com.ziyu.tender.crawler.BasicXjggGetDataCrawler;
 import com.ziyu.tender.crawler.BasicXjggGetDataDetailCrawler;
 import com.ziyu.tender.crawler.BasicXjggPageSizeCrawler;
+import com.ziyu.tender.repository.XjggRepository;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -19,6 +20,8 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 public class XjggUtils {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(XjggUtils.class);
+	
+	private static XjggRepository xjggRepository = SpringUtils.getBean(XjggRepository.class);
 
 	public static void start(List<String> pages) throws Exception{
 		
@@ -44,6 +47,7 @@ public class XjggUtils {
         controller.waitUntilFinish();
         
         logger.info(DateUtils.getNow()+"==============询价公告爬取信息结束==============");
+        xjggRepository.saveAll(LocalDataStorageUtils.xjggList);
         System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.xjggList));
         LocalDataStorageUtils.removeAllXjgg();
         LocalDataStorageUtils.clearXjggList();

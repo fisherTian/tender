@@ -9,6 +9,7 @@ import com.ziyu.tender.config.AppConfig;
 import com.ziyu.tender.crawler.BasicGkzbGetDataCrawler;
 import com.ziyu.tender.crawler.BasicGkzbGetDataDetailCrawler;
 import com.ziyu.tender.crawler.BasicGkzbPageSizeCrawler;
+import com.ziyu.tender.repository.GkzbRepository;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -19,6 +20,8 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 public class GkzbUtils {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(GkzbUtils.class);
+	
+	private static GkzbRepository gkzbRepository = SpringUtils.getBean(GkzbRepository.class);
 
 	public static void start(List<String> pages) throws Exception{
 		
@@ -40,9 +43,8 @@ public class GkzbUtils {
         }
         
         controller.start(BasicGkzbPageSizeCrawler.class, 1);
-		
+        gkzbRepository.saveAll(LocalDataStorageUtils.gkzbList);
         controller.waitUntilFinish();
-        
         logger.info(DateUtils.getNow()+"==============公开招标爬取信息结束==============");
         System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.gkzbList));
         LocalDataStorageUtils.removeAllGkzb();

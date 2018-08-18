@@ -1,10 +1,19 @@
 package com.ziyu.tender.model;
 
+import java.io.Serializable;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import com.alibaba.fastjson.JSONObject;
 import com.ziyu.tender.utils.LocalDataStorageUtils;
 
-public class Gkzb {
+@Document(indexName = "tender",type = "gkzb")
+public class Gkzb implements Serializable{
 
+	private static final long serialVersionUID = -5486342676464419079L;
+
+	@Id
 	private String id;
 	
 	private String title;//采购项目名称
