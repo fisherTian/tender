@@ -71,7 +71,7 @@ public class Xjgg implements Serializable{
 		this.dljgmc = jo.getString("代理机构名称");
 		this.dljgdz = jo.getString("代理机构地址");
 		this.dljglxfs = jo.getString("代理机构联系方式");
-		JSONObject _jo = LocalDataStorageUtils.getGkzbValue(jo.getString("id"));
+		JSONObject _jo = LocalDataStorageUtils.getXjggValue(jo.getString("id"));
 		if(jo.getString("id")!=null && _jo!=null){
 			this.id = jo.getString("id");
 			this.province = _jo.getString("province");
