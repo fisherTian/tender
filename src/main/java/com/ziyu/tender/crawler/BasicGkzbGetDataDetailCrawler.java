@@ -26,7 +26,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
  * 公开招标
  *
  */
-public class BasicGkzbGetDataCrawler extends WebCrawler {
+public class BasicGkzbGetDataDetailCrawler extends WebCrawler {
 
     private static final Pattern IMAGE_EXTENSIONS = Pattern.compile(".*\\.(bmp|gif|jpg|png)$");
 
@@ -48,19 +48,8 @@ public class BasicGkzbGetDataCrawler extends WebCrawler {
             
             //解析html获得总共条目数和总页数
             Document doc = Jsoup.parse(html); 
-            Elements lis = doc.select(".vT-srch-result-list-bid").first().select("li");
-            for(Element el:lis){
-            	Element a = el.select("a").first();
-                String id = a.attr("abs:href").split("/")[a.attr("abs:href").split("/").length-1].replace("t", "").replace(".htm", "").replace(".html", "").replace(".hm", "");
-                Element span = el.select("span").first();
-                String[] arr = span.text().split("\\|");
-                String province = arr[3].trim();
-                JSONObject jo = new JSONObject();
-                jo.put("province", province);
-                jo.put("href", a.attr("abs:href"));
-                LocalDataStorageUtils.putGkzb(id, jo);
-            }
-            System.out.println(com.alibaba.fastjson.JSON.toJSONString(LocalDataStorageUtils.gkzb));
+            Element detail = doc.select(".vF_detail_content").first();
+            System.out.println(detail.html());
         }
 
     }
