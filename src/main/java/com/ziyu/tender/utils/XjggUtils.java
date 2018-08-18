@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ziyu.tender.config.AppConfig;
-import com.ziyu.tender.crawler.BasicGkzbGetDataCrawler;
-import com.ziyu.tender.crawler.BasicGkzbGetDataDetailCrawler;
-import com.ziyu.tender.crawler.BasicGkzbPageSizeCrawler;
+import com.ziyu.tender.crawler.BasicXjggGetDataCrawler;
+import com.ziyu.tender.crawler.BasicXjggGetDataDetailCrawler;
+import com.ziyu.tender.crawler.BasicXjggPageSizeCrawler;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -16,14 +16,14 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
-public class GkzbUtils {
+public class XjggUtils {
 	
-	protected static final Logger logger = LoggerFactory.getLogger(GkzbUtils.class);
+	protected static final Logger logger = LoggerFactory.getLogger(XjggUtils.class);
 
 	public static void start(List<String> pages) throws Exception{
 		
 		CrawlConfig config = new CrawlConfig();
-		config.setCrawlStorageFolder(AppConfig.getCrawlstorageGkzbPageFolder());
+		config.setCrawlStorageFolder(AppConfig.getCrawlstorageXjggPageFolder());
 		config.setPolitenessDelay(1000);
 		config.setMaxDepthOfCrawling(2);
 		config.setMaxPagesToFetch(1000);
@@ -39,14 +39,14 @@ public class GkzbUtils {
         	controller.addSeed(page);
         }
         
-        controller.start(BasicGkzbPageSizeCrawler.class, 1);
+        controller.start(BasicXjggPageSizeCrawler.class, 1);
 		
         controller.waitUntilFinish();
         
-        logger.info(DateUtils.getNow()+"==============公开招标爬取信息结束==============");
-        System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.gkzbList));
-        LocalDataStorageUtils.removeAllGkzb();
-        LocalDataStorageUtils.clearGkzbList();
+        logger.info(DateUtils.getNow()+"==============询价公告爬取信息结束==============");
+        System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.xjggList));
+        LocalDataStorageUtils.removeAllXjgg();
+        LocalDataStorageUtils.clearXjggList();
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class GkzbUtils {
 	public static void startGetData(List<String> pages) throws Exception{
 		
 		CrawlConfig config = new CrawlConfig();
-		config.setCrawlStorageFolder(AppConfig.getCrawlstorageGkzbSubFolder());
+		config.setCrawlStorageFolder(AppConfig.getCrawlstorageXjggSubFolder());
 		config.setPolitenessDelay(1000);
 		config.setMaxDepthOfCrawling(2);
 		config.setMaxPagesToFetch(1000);
@@ -70,13 +70,13 @@ public class GkzbUtils {
         for(String page : pages){
         	controller.addSeed(page);
         }
-        controller.start(BasicGkzbGetDataCrawler.class, AppConfig.getCrawlersGyxxNumbers());
+        controller.start(BasicXjggGetDataCrawler.class, AppConfig.getCrawlersGyxxNumbers());
         
         controller.waitUntilFinish();
         
-        logger.info(DateUtils.getNow()+"==============公开招标爬取概要信息结束==============");
+        logger.info(DateUtils.getNow()+"==============询价公告爬取概要信息结束==============");
 
-        startGetDataDetail(LocalDataStorageUtils.getGkzbHrefs());
+        startGetDataDetail(LocalDataStorageUtils.getXjggHrefs());
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class GkzbUtils {
 	public static void startGetDataDetail(List<String> pages) throws Exception{
 		
 		CrawlConfig config = new CrawlConfig();
-		config.setCrawlStorageFolder(AppConfig.getCrawlstorageGkzbDetailFolder());
+		config.setCrawlStorageFolder(AppConfig.getCrawlstorageXjggDetailFolder());
 		config.setPolitenessDelay(1000);
 		config.setMaxDepthOfCrawling(2);
 		config.setMaxPagesToFetch(1000);
@@ -101,11 +101,11 @@ public class GkzbUtils {
         	controller.addSeed(page);
         }
         
-        controller.start(BasicGkzbGetDataDetailCrawler.class, AppConfig.getCrawlersDetailNumbers());
+        controller.start(BasicXjggGetDataDetailCrawler.class, AppConfig.getCrawlersDetailNumbers());
 		
         controller.waitUntilFinish();
         
-        logger.info(DateUtils.getNow()+"==============公开招标爬取详细信息结束==============");
+        logger.info(DateUtils.getNow()+"==============询价公告爬取详细信息结束==============");
         
 	}
 	

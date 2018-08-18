@@ -15,6 +15,10 @@ public class AppConfig {
     private static final String CRAWLSTORAGE_GKZB_SUB_FOLDER = "CRAWLSTORAGE.GKZB.SUB.FOLDER";
     private static final String CRAWLSTORAGE_GKZB_DETAIL_FOLDER = "CRAWLSTORAGE.GKZB.DETAIL.FOLDER";
     
+    private static final String CRAWLSTORAGE_XJGG_PAGE_FOLDER = "CRAWLSTORAGE.XJGG.PAGE.FOLDER";
+    private static final String CRAWLSTORAGE_XJGG_SUB_FOLDER = "CRAWLSTORAGE.XJGG.SUB.FOLDER";
+    private static final String CRAWLSTORAGE_XJGG_DETAIL_FOLDER = "CRAWLSTORAGE.XJGG.DETAIL.FOLDER";
+    
     private static Properties p = new Properties();
 
     static {
@@ -57,5 +61,17 @@ public class AppConfig {
     
     public static String getCrawlstorageGkzbDetailFolder() {
         return p.getProperty(CRAWLSTORAGE_GKZB_DETAIL_FOLDER);
+    }
+    
+    public static String getCrawlstorageXjggPageFolder() {
+        return p.getProperty(CRAWLSTORAGE_XJGG_PAGE_FOLDER);
+    }
+    
+    public static String getCrawlstorageXjggSubFolder() {
+        return p.getProperty(CRAWLSTORAGE_XJGG_SUB_FOLDER);
+    }
+    
+    public static String getCrawlstorageXjggDetailFolder() {
+        return p.getProperty(CRAWLSTORAGE_XJGG_DETAIL_FOLDER);
     }
 }

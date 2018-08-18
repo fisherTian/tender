@@ -46,7 +46,6 @@ public class BasicGkzbGetDataCrawler extends WebCrawler {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             String html = htmlParseData.getHtml();
             
-            //解析html获得总共条目数和总页数
             Document doc = Jsoup.parse(html); 
             Elements lis = doc.select(".vT-srch-result-list-bid").first().select("li");
             for(Element el:lis){
@@ -58,10 +57,12 @@ public class BasicGkzbGetDataCrawler extends WebCrawler {
                 JSONObject jo = new JSONObject();
                 jo.put("province", province);
                 jo.put("href", a.attr("abs:href"));
+                jo.put("id", id);
+                jo.put("createTime", arr[0].replace(".", "-"));
                 LocalDataStorageUtils.putGkzb(id, jo);
             }
-            System.out.println(com.alibaba.fastjson.JSON.toJSONString(LocalDataStorageUtils.gkzb));
         }
 
     }
+    
 }

@@ -23,10 +23,10 @@ import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
 /**
- * 公开招标
+ * 询价公告
  *
  */
-public class BasicGkzbGetDataDetailCrawler extends WebCrawler {
+public class BasicXjggGetDataCrawler extends WebCrawler {
 
     private static final Pattern IMAGE_EXTENSIONS = Pattern.compile(".*\\.(bmp|gif|jpg|png)$");
 
@@ -41,30 +41,28 @@ public class BasicGkzbGetDataDetailCrawler extends WebCrawler {
 
     @Override
     public void visit(Page page) {
-    	String id = page.getWebURL().getURL().split("/")[page.getWebURL().getURL().split("/").length-1].replace("t", "").replace(".htm", "").replace(".html", "").replace(".hm", "");
+    	
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             String html = htmlParseData.getHtml();
             
             Document doc = Jsoup.parse(html); 
-            Element detail = doc.select(".vF_detail_main table").first();
-            Elements trs = detail.select("tr");
-            JSONObject jo = new JSONObject();
-            jo.put("id", id);
-            for(Element tr:trs){
-            	Elements tds = tr.select("td");
-            	if(tds.size()>1){
-            		if(tds.size()==2){
-            			jo.put(tds.get(0).text(), tds.get(1).text());
-            		}
-            		if(tds.size()==4){
-            			jo.put(tds.get(0).text(), tds.get(1).text());
-            			jo.put(tds.get(2).text(), tds.get(3).text());
-            		}
-            	}
+            Elements lis = doc.select(".vT-srch-result-list-bid").first().select("li");
+            for(Element el:lis){
+            	Element a = el.select("a").first();
+                String id = a.attr("abs:href").split("/")[a.attr("abs:href").split("/").length-1].replace("t", "").replace(".htm", "").replace(".html", "").replace(".hm", "");
+                Element span = el.select("span").first();
+                String[] arr = span.text().split("\\|");
+                String province = arr[3].trim();
+                JSONObject jo = new JSONObject();
+                jo.put("province", province);
+                jo.put("href", a.attr("abs:href"));
+                jo.put("id", id);
+                jo.put("createTime", arr[0].replace(".", "-"));
+                LocalDataStorageUtils.putXjgg(id, jo);
             }
-            LocalDataStorageUtils.addGkzb(new Gkzb(jo));
         }
 
     }
+    
 }

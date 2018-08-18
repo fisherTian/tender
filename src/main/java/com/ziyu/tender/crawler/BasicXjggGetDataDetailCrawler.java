@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 import com.alibaba.fastjson.JSONObject;
 import com.ziyu.tender.config.AppConfig;
 import com.ziyu.tender.model.Gkzb;
+import com.ziyu.tender.model.Xjgg;
 import com.ziyu.tender.utils.DateUtils;
 import com.ziyu.tender.utils.GkzbUtils;
 import com.ziyu.tender.utils.LocalDataStorageUtils;
@@ -23,10 +24,10 @@ import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
 
 /**
- * 公开招标
+ * 询价公告
  *
  */
-public class BasicGkzbGetDataDetailCrawler extends WebCrawler {
+public class BasicXjggGetDataDetailCrawler extends WebCrawler {
 
     private static final Pattern IMAGE_EXTENSIONS = Pattern.compile(".*\\.(bmp|gif|jpg|png)$");
 
@@ -63,7 +64,7 @@ public class BasicGkzbGetDataDetailCrawler extends WebCrawler {
             		}
             	}
             }
-            LocalDataStorageUtils.addGkzb(new Gkzb(jo));
+            LocalDataStorageUtils.addXjgg(new Xjgg(jo));
         }
 
     }

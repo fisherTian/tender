@@ -3,7 +3,7 @@ package com.ziyu.tender.model;
 import com.alibaba.fastjson.JSONObject;
 import com.ziyu.tender.utils.LocalDataStorageUtils;
 
-public class Gkzb {
+public class Xjgg {
 
 	private String id;
 	
@@ -19,15 +19,11 @@ public class Gkzb {
 	
 	private String province;//省份
 	
-	private String hqzbwjsj;//获取招标文件时间
+	private String bmsj;//报名时间
 	
-	private String zbwjsj;//招标文件售价
+	private String bmdd;//报名地点
 	
-	private String hqzbwjdd;//获取招标文件的地点
-
 	private String kbsj;//开标时间
-	
-	private String kbdd;//开标地点
 	
 	private String ysje;//预算金额
 	
@@ -50,17 +46,15 @@ public class Gkzb {
 	
 	private String href;//链接
 	
-	public Gkzb(JSONObject jo){
+	public Xjgg(JSONObject jo){
 		this.title = jo.getString("采购项目名称");
 		this.pm = jo.getString("品目");
 		this.ggsj = jo.getString("公告时间");
 		this.cgdw = jo.getString("采购单位");
 		this.xzqy = jo.getString("行政区域");
-		this.hqzbwjsj = jo.getString("获取招标文件时间");
-		this.zbwjsj = jo.getString("招标文件售价");
-		this.hqzbwjdd = jo.getString("获取招标文件的地点");
+		this.bmsj = jo.getString("报名时间");
+		this.bmdd = jo.getString("报名地点");
 		this.kbsj = jo.getString("开标时间");
-		this.kbdd = jo.getString("开标地点");
 		this.ysje = jo.getString("预算金额");
 		this.xmlxr = jo.getString("项目联系人");
 		this.xmlxdh = jo.getString("项目联系电话");
@@ -76,38 +70,6 @@ public class Gkzb {
 			this.createTime = _jo.getString("createTime");
 			this.href = _jo.getString("href");
 		}
-	}
-
-	public String getCgdwdz() {
-		return cgdwdz;
-	}
-
-
-
-	public void setCgdwdz(String cgdwdz) {
-		this.cgdwdz = cgdwdz;
-	}
-
-
-
-	public String getHref() {
-		return href;
-	}
-
-
-
-	public void setHref(String href) {
-		this.href = href;
-	}
-
-
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
 	}
 
 	public String getId() {
@@ -166,28 +128,20 @@ public class Gkzb {
 		this.province = province;
 	}
 
-	public String getHqzbwjsj() {
-		return hqzbwjsj;
+	public String getBmsj() {
+		return bmsj;
 	}
 
-	public void setHqzbwjsj(String hqzbwjsj) {
-		this.hqzbwjsj = hqzbwjsj;
+	public void setBmsj(String bmsj) {
+		this.bmsj = bmsj;
 	}
 
-	public String getZbwjsj() {
-		return zbwjsj;
+	public String getBmdd() {
+		return bmdd;
 	}
 
-	public void setZbwjsj(String zbwjsj) {
-		this.zbwjsj = zbwjsj;
-	}
-
-	public String getHqzbwjdd() {
-		return hqzbwjdd;
-	}
-
-	public void setHqzbwjdd(String hqzbwjdd) {
-		this.hqzbwjdd = hqzbwjdd;
+	public void setBmdd(String bmdd) {
+		this.bmdd = bmdd;
 	}
 
 	public String getKbsj() {
@@ -196,14 +150,6 @@ public class Gkzb {
 
 	public void setKbsj(String kbsj) {
 		this.kbsj = kbsj;
-	}
-
-	public String getKbdd() {
-		return kbdd;
-	}
-
-	public void setKbdd(String kbdd) {
-		this.kbdd = kbdd;
 	}
 
 	public String getYsje() {
@@ -228,6 +174,14 @@ public class Gkzb {
 
 	public void setXmlxdh(String xmlxdh) {
 		this.xmlxdh = xmlxdh;
+	}
+
+	public String getCgdwdz() {
+		return cgdwdz;
+	}
+
+	public void setCgdwdz(String cgdwdz) {
+		this.cgdwdz = cgdwdz;
 	}
 
 	public String getCgdwlxfs() {
@@ -261,6 +215,23 @@ public class Gkzb {
 	public void setDljglxfs(String dljglxfs) {
 		this.dljglxfs = dljglxfs;
 	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
+	}
+
 	
 	
 	
