@@ -49,22 +49,24 @@ public class BasicXjggGetDataDetailCrawler extends WebCrawler {
             
             Document doc = Jsoup.parse(html); 
             Element detail = doc.select(".vF_detail_main table").first();
-            Elements trs = detail.select("tr");
-            JSONObject jo = new JSONObject();
-            jo.put("id", id);
-            for(Element tr:trs){
-            	Elements tds = tr.select("td");
-            	if(tds.size()>1){
-            		if(tds.size()==2){
-            			jo.put(tds.get(0).text(), tds.get(1).text());
-            		}
-            		if(tds.size()==4){
-            			jo.put(tds.get(0).text(), tds.get(1).text());
-            			jo.put(tds.get(2).text(), tds.get(3).text());
-            		}
-            	}
+            if(detail!=null){
+            	Elements trs = detail.select("tr");
+                JSONObject jo = new JSONObject();
+                jo.put("id", id);
+                for(Element tr:trs){
+                	Elements tds = tr.select("td");
+                	if(tds.size()>1){
+                		if(tds.size()==2){
+                			jo.put(tds.get(0).text(), tds.get(1).text());
+                		}
+                		if(tds.size()==4){
+                			jo.put(tds.get(0).text(), tds.get(1).text());
+                			jo.put(tds.get(2).text(), tds.get(3).text());
+                		}
+                	}
+                }
+                LocalDataStorageUtils.addXjgg(new Xjgg(jo));
             }
-            LocalDataStorageUtils.addXjgg(new Xjgg(jo));
         }
 
     }

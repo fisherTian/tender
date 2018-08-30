@@ -10,6 +10,8 @@ import com.ziyu.tender.crawler.BasicGkzbGetDataCrawler;
 import com.ziyu.tender.crawler.BasicGkzbGetDataDetailCrawler;
 import com.ziyu.tender.crawler.BasicGkzbPageSizeCrawler;
 import com.ziyu.tender.repository.GkzbRepository;
+import com.ziyu.tender.tender.model.Record;
+import com.ziyu.tender.tender.service.RecordService;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -22,6 +24,8 @@ public class GkzbUtils {
 	protected static final Logger logger = LoggerFactory.getLogger(GkzbUtils.class);
 	
 	private static GkzbRepository gkzbRepository = SpringUtils.getBean(GkzbRepository.class);
+	
+	private static RecordService recordService = SpringUtils.getBean(RecordService.class);
 
 	public static void start(List<String> pages) throws Exception{
 		
@@ -43,9 +47,12 @@ public class GkzbUtils {
         }
         
         controller.start(BasicGkzbPageSizeCrawler.class, 1);
-        gkzbRepository.saveAll(LocalDataStorageUtils.gkzbList);
         controller.waitUntilFinish();
         logger.info(DateUtils.getNow()+"==============公开招标爬取信息结束==============");
+        //保存到mysql
+        recordService.batchAddRecord(Record.GKZB_TYPE);
+        //保存到es
+        if(LocalDataStorageUtils.gkzbList.size()>0)gkzbRepository.saveAll(LocalDataStorageUtils.gkzbList);
         System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.gkzbList));
         LocalDataStorageUtils.removeAllGkzb();
         LocalDataStorageUtils.clearGkzbList();

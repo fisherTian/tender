@@ -12,3 +12,11 @@ CREATE TABLE `ACCOUNT` (
   `create_time` datetime DEFAULT NULL,   /*创建时间*/
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+/*爬取id记录表*/
+drop table if exists RECORD;
+CREATE TABLE `RECORD` (
+  `id` varchar(100) NOT NULL,  /*id*/
+  `type` varchar(2) NOT NULL, /*类型  01公开招标  02询价公告 */
+  `create_time` datetime DEFAULT NULL   /*创建时间*/
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;

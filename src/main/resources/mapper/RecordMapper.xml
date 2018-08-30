@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziyu.tender.tender.mapper.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.ziyu.tender.tender.model.Record">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ziyu.tender.tender.model.Record">
+    insert into RECORD (id, create_time,type)
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},#{type,jdbcType=VARCHAR},)
+  </insert>
+  <insert id="insertSelective" parameterType="com.ziyu.tender.tender.model.Record">
+    insert into RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id="batchAddRecord" parameterType="java.util.ArrayList">
+	   insert into RECORD (id, create_time,type)
+	   values 
+	  <foreach collection="list" item="item"  index="index" separator=",">
+	    (#{item.id}, #{item.createTime}, #{item.type})
+	  </foreach>;
+	</insert>
+  
+  <select id="loadRecordList" resultType="java.util.List">
+  	select id from RECORD where to_days(create_time) = to_days(now()) and type = #{type};
+  </select>
+  
+</mapper>
