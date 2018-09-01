@@ -12,6 +12,8 @@ public interface RecordMapper {
 	
 	List<String> loadRecordList(@Param("type") String type);
 	
+	void deleteRecords();
+	
     int insert(Record record);
 
     int insertSelective(Record record);

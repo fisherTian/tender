@@ -75,4 +75,9 @@ public class RecordServiceImpl implements RecordService{
 		}
 	}
 
+	@Override
+	public void deleteRecords() {
+		recordMapper.deleteRecords();
+	}
+
 }

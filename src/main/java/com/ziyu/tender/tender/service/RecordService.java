@@ -8,4 +8,6 @@ public interface RecordService {
 
 	public void batchAddRecord(String type);
 	
+	public void deleteRecords();
+	
 }

@@ -42,4 +42,8 @@
   	select id from RECORD where to_days(create_time) = to_days(now()) and type = #{type};
   </select>
   
+  <delete id="deleteRecords">
+  delete from RECORD where to_days(create_time) &lt; to_days(now())
+  </delete>
+  
 </mapper>
