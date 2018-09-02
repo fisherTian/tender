@@ -1,5 +1,6 @@
 package com.ziyu.tender.utils;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -51,6 +52,7 @@ public class XjggUtils {
         controller.waitUntilFinish();
         
         logger.info(DateUtils.getNow()+"==============询价公告爬取信息结束==============");
+        System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.xjggList));
         //保存到mysql
         recordService.batchAddRecord(Record.XJGG_TYPE);
         //保存到es

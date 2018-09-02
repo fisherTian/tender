@@ -50,22 +50,24 @@ public class BasicGkzbPageSizeCrawler extends WebCrawler {
             Element vt = doc.select("div.vT_z").get(3);
             String totalNum = vt.select("div").first().select("div").first().select("p").first().select("span").get(1).text();
             int totalPage = 0;
-            String json = (vt.select("div").first().select("div").first().select("p.pager").first().getElementsByTag("script").get(0).data().toString().replace("Pager(","").replace(");", ""));
-            JSONObject jo = JSONObject.parseObject(json);
-            totalPage = jo.getIntValue("size");
-            logger.info(DateUtils.getNow()+"：公开招标今日总共发布  "+totalNum+"条招标信息，一共"+totalPage+"页");
-            
-            //分页爬取
-            List<String> pages = new ArrayList<String>();
-            Date now = new Date();
-            for(int i=0;i<totalPage;i++){
-            	pages.add(AppConfig.getGkzbUrl(i+1, DateUtils.toString(now, DateUtils.DEFAULT_DATE_FORMAT), DateUtils.toString(now, DateUtils.DEFAULT_DATE_FORMAT)));
+            if(Integer.parseInt(totalNum)>0){
+            	String json = (vt.select("div").first().select("div").first().select("p.pager").first().getElementsByTag("script").get(0).data().toString().replace("Pager(","").replace(");", ""));
+                JSONObject jo = JSONObject.parseObject(json);
+                totalPage = jo.getIntValue("size");
+                logger.info(DateUtils.getNow()+"：公开招标今日总共发布  "+totalNum+"条招标信息，一共"+totalPage+"页");
+                
+                //分页爬取
+                List<String> pages = new ArrayList<String>();
+                Date now = new Date();
+                for(int i=0;i<totalPage;i++){
+                	pages.add(AppConfig.getGkzbUrl(i+1, DateUtils.toString(now, DateUtils.DEFAULT_DATE_FORMAT), DateUtils.toString(now, DateUtils.DEFAULT_DATE_FORMAT)));
+                }
+                try {
+    				GkzbUtils.startGetData(pages);
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
             }
-            try {
-				GkzbUtils.startGetData(pages);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
         }
 
     }

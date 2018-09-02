@@ -45,7 +45,6 @@ public class BasicGkzbGetDataDetailCrawler extends WebCrawler {
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             String html = htmlParseData.getHtml();
-            
             Document doc = Jsoup.parse(html); 
             Element detail = doc.select(".vF_detail_main table").first();
             if(detail!=null){

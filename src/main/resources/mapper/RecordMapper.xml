@@ -38,8 +38,8 @@
 	  </foreach>;
 	</insert>
   
-  <select id="loadRecordList" resultType="java.util.List">
-  	select id from RECORD where to_days(create_time) = to_days(now()) and type = #{type};
+  <select id="loadRecordList" resultType="java.lang.String">
+  	select id from RECORD where to_days(create_time) = to_days(now()) and `type` = #{type}
   </select>
   
   <delete id="deleteRecords">

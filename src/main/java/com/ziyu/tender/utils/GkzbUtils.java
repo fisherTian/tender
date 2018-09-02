@@ -49,6 +49,7 @@ public class GkzbUtils {
         controller.start(BasicGkzbPageSizeCrawler.class, 1);
         controller.waitUntilFinish();
         logger.info(DateUtils.getNow()+"==============公开招标爬取信息结束==============");
+        System.out.println(com.alibaba.fastjson.JSON.toJSON(LocalDataStorageUtils.gkzbList));
         //保存到mysql
         recordService.batchAddRecord(Record.GKZB_TYPE);
         //保存到es
