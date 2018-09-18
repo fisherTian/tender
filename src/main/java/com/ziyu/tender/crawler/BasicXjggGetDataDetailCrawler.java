@@ -52,6 +52,8 @@ public class BasicXjggGetDataDetailCrawler extends WebCrawler {
             if(detail!=null){
             	Elements trs = detail.select("tr");
                 JSONObject jo = new JSONObject();
+                Element content = doc.select(".vF_detail_main .vF_detail_content_container").first();
+                jo.put("content", content.html());
                 jo.put("id", id);
                 for(Element tr:trs){
                 	Elements tds = tr.select("td");

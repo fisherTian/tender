@@ -54,6 +54,8 @@ public class Xjgg implements Serializable{
 	
 	private String href;//链接
 	
+	private String content;//公告概要html
+	
 	public Xjgg(JSONObject jo){
 		this.title = jo.getString("采购项目名称");
 		this.pm = jo.getString("品目");
@@ -71,6 +73,7 @@ public class Xjgg implements Serializable{
 		this.dljgmc = jo.getString("代理机构名称");
 		this.dljgdz = jo.getString("代理机构地址");
 		this.dljglxfs = jo.getString("代理机构联系方式");
+		this.content = jo.getString("content");
 		JSONObject _jo = LocalDataStorageUtils.getXjggValue(jo.getString("id"));
 		if(jo.getString("id")!=null && _jo!=null){
 			this.id = jo.getString("id");
@@ -79,6 +82,15 @@ public class Xjgg implements Serializable{
 			this.href = _jo.getString("href");
 		}
 	}
+	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 
 	public String getId() {
 		return id;

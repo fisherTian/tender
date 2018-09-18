@@ -59,6 +59,8 @@ public class Gkzb implements Serializable{
 	
 	private String href;//链接
 	
+	private String content;//公告概要html
+	
 	public Gkzb(JSONObject jo){
 		this.title = jo.getString("采购项目名称");
 		this.pm = jo.getString("品目");
@@ -78,6 +80,7 @@ public class Gkzb implements Serializable{
 		this.dljgmc = jo.getString("代理机构名称");
 		this.dljgdz = jo.getString("代理机构地址");
 		this.dljglxfs = jo.getString("代理机构联系方式");
+		this.content = jo.getString("content");
 		JSONObject _jo = LocalDataStorageUtils.getGkzbValue(jo.getString("id"));
 		if(jo.getString("id")!=null && _jo!=null){
 			this.id = jo.getString("id");
@@ -87,6 +90,14 @@ public class Gkzb implements Serializable{
 		}
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	public String getCgdwdz() {
 		return cgdwdz;
 	}
